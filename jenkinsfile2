@@ -1,9 +1,9 @@
-piplien {
-    agent any
-    tools{
+pipeline {
+    agent any 
+    tools {
         maven 'M2_HOME'
     }
-    stages {
+    stages{
         stage('maven commands'){
             steps{
                 sh 'mvn clean compile install package'
