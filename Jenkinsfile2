@@ -13,19 +13,19 @@ pipeline{
             }
         }
     }
-        stage('maven commands2'){
+        stage('maven commands'){
             steps{
                 sh 'mvn clean compile install package'
             }
         }
-        stage('upload artifact'){
+        stage('upload artifacts'){
             steps{
                 sh 'curl -uadmin:AP8FLm7718W6o5MZnPEHVRnaYwx -T \
                 target/bio*.jar \
                 "http://54.173.238.117:8081/artifactory/geoapp1/"'
             }
         }
-        stage('image build ecr'){
+        stage('image build'){
             steps{
                 sh ' aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 166882821092.dkr.ecr.us-east-1.amazonaws.com'
                 sh 'docker build -t devops'
