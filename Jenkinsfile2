@@ -20,21 +20,21 @@ pipeline{
         }
         stage('upload artifacts'){
             steps{
-                sh 'curl -uadmin:AP8FLm7718W6o5MZnPEHVRnaYwx -T \
+                sh 'curl -uadmin:AP5mZ1TGxbfJg5s8o7m1rRSRP4i -T \
                 target/bio*.jar \
-                "http://54.173.238.117:8081/artifactory/geoapp1/"'
+                "http://3.89.129.151:8081/artifactory/geoapp1/"'
             }
         }
         stage('image build'){
             steps{
                 sh ' aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 166882821092.dkr.ecr.us-east-1.amazonaws.com'
-                sh 'docker build -t devops'
+                sh 'docker build -t geoapp1 .'
             }
         }
         stage('push image'){
             steps{
-                sh 'docker tag devops:latest 166882821092.dkr.ecr.us-east-1.amazonaws.com/devops:${BUILD_ID}'
-                sh 'docker push 166882821092.dkr.ecr.us-east-1.amazonaws.com/devops:${BUILD_ID}'
+                sh 'docker tag geoapp1:latest 166882821092.dkr.ecr.us-east-1.amazonaws.com/geoapp1:${BUILD_ID}'
+                sh 'docker push 166882821092.dkr.ecr.us-east-1.amazonaws.com/geoapp1:${BUILD_ID}'
             }
         }
     }
